@@ -54,28 +54,73 @@ const FizzBuzz = ()=>{
 }
 FizzBuzz();
 
-const calificaciones = {
-    mate: 10,
-    historia:8,
-    fisica: 9,
-    quimica:6,
-    etica:10,
+const calificaciones = [{calif: 10, student: 'A'},{calif: 8, student:'B'},{calif: 9, student: 'A'},{calif: 9, student: 'Y'},{calif: 3, student: 'B'},{calif: 7, student: 'C'}];
+const calificacionesB = [6,7,8,9,10,8,5,3,4,7,5,7,4,7,9,6,3,9,9,6,10,4];
 //Una función que reciba como parámetro un arreglo de calificaciones y obtenga el promedio.
-    promedio() {
-        prom = (this.mate+this.historia+this.fisica+ this.quimica)/4
-      return  `${prom}, Es el promedio del alumno`;
-    },
+    // promedio() {
+    //     prom = (this.mate+this.historia+this.fisica+ this.quimica)/4
+    //   return  `${prom}, Es el promedio del alumno`;
+    // }
 
+    const mean = (array = [])=>{
+        const reducer = (acumulador, calificaciones) => acumulador+calificaciones;
+        const suma = array.reduce(reducer, 0);
+        return suma/array.length;
+    }
+   // console.log(mean(calificaciones));
 //Un función que reciba como parámetro un arreglo de calificaciones y obtenga la media. 
-    media() {
-        media1 = (this.mate+this.historia+this.fisica+ this.quimica)/calificaciones.length;
-        return  `${media1}, Es la media de las calificaciones`;
-    },
+    const median= (array = [], key, direction = 'desc')=>{
+        const sortFunction = (a, b) => {
+            let res = 0;
+            if (a[key] > b[key]){
+                res = 1;
+            } 
+            if(a[key] < b[key]){
+                res = -1;
+            }
+            return direction === 'asc' 
+            ? res
+            : - res
+        }
+        let res = 0;
+        const sortedCalif = array.sort(sortFunction);
+
+        if (array.length % 2 === 0){
+            const x = sortedCalif.length/2;
+            const y = x+1;
+            const medianStudents = sortedCalif.slice(x, y + 1);
+            res = {students: medianStudents, median:([x, y])};
+        } else{
+          res = (Math.floor(sortedCalif.length/2));
+          res= array[index];
+        }
+
+        return res;
+    }
+median(calificaciones, 'student', 'asc');
+
 
 //Una función que reciba como parámetro un arreglo de calificaciones y obtenga la moda.
     
+const moda = (array = []) => {
+    const reducer = (acumulador, elemento) => {
+      if(acumulador[elemento.calif]){
+          acumulador[elemento.calif] += 1;
+      }else {
+          acumulador[elemento.calif] = 1;
+      }
+      return acumulador;
+    }
+
+    const count = array.reduce(reducer, {});
+    const res = Object.entries(count);
+    const max = res.reduce((acumulador, elemento) => {
+        if(acumulador[1] < elemento[1]){
+            acumulador = elemento;
+        }
+        return acumulador;
+    }, [0, 0]);
+    console.log(max);
 }
 
-console.log(calificaciones.promedio());
-console.log(calificaciones.media());
-
+moda(calificaciones);
