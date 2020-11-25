@@ -1,6 +1,3 @@
-// const root = '/';
-
-// const authors = '/autor'
 const { Router } = require('express')
 const DirectorsRouter = require('./DirectorsRouter.js')
 const MoviesRouter = require('./MoviesRouter.js')
