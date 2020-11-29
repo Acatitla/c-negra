@@ -7,4 +7,4 @@ const router = Router()
 router.use(DirectorsRouter)
 router.use(MoviesRouter)
 
-module.exports = router
+module.exports = router;
